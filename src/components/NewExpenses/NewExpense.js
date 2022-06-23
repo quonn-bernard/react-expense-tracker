@@ -11,9 +11,11 @@ export const NewExpense = (props) => {
 
         props.onExpenseAdded(expenseData)
     }
+
+    
     return(
         <div className='new-expense'>
-            <NewExpensesForm onSaveExpenseData={handleExpenseDataSave}/>
+            <NewExpensesForm handleCancel={props.onCancel} onSaveExpenseData={handleExpenseDataSave}/>
         </div>
     )
 }

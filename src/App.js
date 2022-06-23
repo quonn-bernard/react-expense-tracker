@@ -26,17 +26,35 @@ const INITIAL_EXPENSES = [
 
 const App = () => {
 
-  const [expenses, setExpenses] = useState(INITIAL_EXPENSES)
+  const [expenses, setExpenses] = useState(INITIAL_EXPENSES);
+  const [isFormVisible, setFormVisible] = useState(false);
+
   const handleAddedExpense = expense => {
     setExpenses((prevExpenses) => {
       return [expense, ...prevExpenses];
     });
   }
 
+  const toggleAddNewExpenseForm = () => {
+    setFormVisible(true)
+  }
+
+  const handleCancelledNewExpense = () => {
+    setFormVisible(false)
+  }
+
+  let addExpenseContent = <div className='new-expense'>
+    <button onClick={toggleAddNewExpenseForm}>Add New Expense</button>
+  </div>
+  
+  if(isFormVisible) {
+    addExpenseContent = <NewExpense onCancel={handleCancelledNewExpense} onExpenseAdded={handleAddedExpense}/>
+  }  
+
   return (
     <div>
       <h2>Lets Get Started</h2>
-      <NewExpense onExpenseAdded={handleAddedExpense}/>
+      {addExpenseContent}
       <Expenses items={expenses}  />
     </div>
   );
