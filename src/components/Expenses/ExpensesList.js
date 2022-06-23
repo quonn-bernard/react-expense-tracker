@@ -3,21 +3,15 @@ import ExpenseItem from './ExpenseItem';
 
 export const ExpensesList = (props) => {
 
-    let expensesContent = <p>No Expenses Found</p>;
-
-    const filteredExpenses = props.items.filter(item => {
-        return item.date.getFullYear().toString() === selectedYear;
-    })
-
-    if(filteredExpenses.length > 0) {
-        expensesContent = filteredExpenses.map((item) => {
-            return <ExpenseItem key={item.id} title={item.title} amount={item.amount} date={item.date} />
-        })
+    if(props.items.length === 0) {
+        return <h2 className='expenses-list__fallback'>Found no expenses...</h2>
     }
 
     return(
-        <div className='expenses-list'>
-
-        </div>
+        <ul className='expenses-list'>
+            { props.items.map((item) => {
+            return <ExpenseItem key={item.id} title={item.title} amount={item.amount} date={item.date} />
+        }) }
+        </ul>
     )
 }
